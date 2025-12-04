@@ -546,16 +546,16 @@ const Careers = () => {
           <div className="culture-images">
             <div className="image-grid">
               <div className="image-item image-item-1">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Team collaboration" />
+                <img src="/home2.jpg" alt="Team collaboration" />
               </div>
               <div className="image-item image-item-2">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Office environment" />
+                <img src="/img5.jpg" alt="Office environment" />
               </div>
               <div className="image-item image-item-3">
-                <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab286?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Team event" />
+                <img src="/img6.jpg" alt="Team event" />
               </div>
               <div className="image-item image-item-4">
-                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Workspace" />
+                <img src="/img7.jpg" alt="Workspace" />
               </div>
             </div>
           </div>

@@ -1,5 +1,21 @@
 /* Footer.css */
+html {
+  height: 100%;
+}
 
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1; /* Pushes footer down */
+}
+
+footer {
+  margin-top: auto;
+}
 /* Footer Base Styles */
 .footer {
   position: relative;

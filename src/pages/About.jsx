@@ -618,7 +618,7 @@ const leadershipData = [
     role: 'CEO & Founder',
     bio: '20+ years in tech leadership, visionary entrepreneur with 5 successful exits.',
     expertise: ['Strategy', 'AI/ML', 'Scaling'],
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop'
+    image: '/img.jpg'
   },
   {
     id: 2,
@@ -626,7 +626,7 @@ const leadershipData = [
     role: 'CTO',
     bio: 'Former Google engineer, specializes in scalable architecture and cloud solutions.',
     expertise: ['Cloud', 'DevOps', 'Security'],
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop'
+    image: '/img1.jpg'
   },
   {
     id: 3,
@@ -634,7 +634,7 @@ const leadershipData = [
     role: 'Head of Talent',
     bio: 'HR innovator with expertise in building world-class remote engineering teams.',
     expertise: ['Talent', 'Culture', 'HR Tech'],
-    image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop'
+    image: '/img3.jpg'
   },
   {
     id: 4,
@@ -642,7 +642,7 @@ const leadershipData = [
     role: 'VP of Engineering',
     bio: 'Ex-Microsoft technical lead, expert in enterprise digital transformation.',
     expertise: ['Enterprise', 'Transformation', 'Agile'],
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop'
+    image: '/img4.jpg'
   }
 ];
 

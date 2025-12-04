@@ -23,9 +23,9 @@ import {
 import "../css/Contact.css";
 
 // Sample images - replace with your actual images
-const contactImage = "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
-const mapImage = "https://tse4.mm.bing.net/th/id/OIP.z_pmo8PzciDwJ6-4n8o5eAHaFu?pid=Api&P=0&h=220";
-const teamImage = "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
+const contactImage = "/img7.jpg";
+const mapImage = "/map.jpg";
+const teamImage = "/team.jpg";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -117,7 +117,7 @@ const Contact = () => {
       address: "123 Tech Park, Silicon Valley, SF 94107",
       phone: "+1 (555) 123-4567",
       email: "sf@apexbyteit.com",
-      image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      image: "/place.jpg"
     },
     {
       id: 2,
@@ -126,7 +126,7 @@ const Contact = () => {
       address: "456 Tech Tower, Manhattan, NY 10001",
       phone: "+1 (555) 987-6543",
       email: "ny@apexbyteit.com",
-      image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      image: "/place1.jpg"
     },
     {
       id: 3,
@@ -135,7 +135,7 @@ const Contact = () => {
       address: "789 Innovation Hub, London EC2A 4BX",
       phone: "+44 20 7123 4567",
       email: "london@apexbyteit.com",
-      image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      image: "/place2.jpg"
     },
     {
       id: 4,
@@ -144,7 +144,7 @@ const Contact = () => {
       address: "101 Digital Center, Singapore 048623",
       phone: "+65 6123 4567",
       email: "sg@apexbyteit.com",
-      image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      image: "/place3.jpg"
     }
   ];
 
@@ -553,8 +553,8 @@ const Contact = () => {
       <section className="faq-section">
         <div className="container">
           <div className="section-header">
-            <h2>Frequently Asked Questions</h2>
-            <p>Find quick answers to common questions about contacting us</p>
+            <h2 style={{color:'white'}}>Frequently Asked Questions</h2>
+            <p style={{color:'grey'}}>Find quick answers to common questions about contacting us</p>
           </div>
           
           <div className="faq-container">

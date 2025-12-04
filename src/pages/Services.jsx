@@ -683,6 +683,7 @@ const Services = () => {
             <motion.h2 
               className="services-section-title"
               variants={fadeInUp}
+              style={{color:'black'}}
             >
               How We Deliver Excellence
             </motion.h2>
