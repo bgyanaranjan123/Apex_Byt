@@ -1072,6 +1072,9 @@
 }
 
 @media (max-width: 768px) {
+  .contact-page {
+    margin-top: 60px;
+  }
   .contact-hero {
     padding: 80px 0;
   }

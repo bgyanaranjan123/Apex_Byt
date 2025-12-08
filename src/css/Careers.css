@@ -954,6 +954,9 @@
 
 /* Mobile */
 @media (max-width: 768px) {
+  .career-page {
+    margin-top: 60px;
+  }
   .career-hero {
     padding: 80px 20px 60px;
   }
