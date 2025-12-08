@@ -28,10 +28,13 @@ const Home = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const homeRef = useRef(null);
+  const heroRef = useRef(null);
   const testimonialIntervalRef = useRef(null);
   const touchStartRef = useRef(0);
   const touchStartTimeRef = useRef(0);
   const isTouchInteractingRef = useRef(false);
+  const wheelTimeoutRef = useRef(null);
+  const isInHeroSection = useRef(true);
   
   const backgroundImages = [
     '/home.jpg',
@@ -198,41 +201,79 @@ const Home = () => {
     };
   }, [testimonials.length]);
 
-  // Handle wheel events (desktop only)
+  // Track scroll position to know if we're in hero section
   useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const heroHeight = heroRef.current?.offsetHeight || 0;
+      isInHeroSection.current = scrollY < heroHeight * 0.8; // 80% of hero section
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Handle wheel events - SIMPLIFIED VERSION - NO preventDefault
+  useEffect(() => {
+    let wheelTimeout = null;
+    let lastWheelTime = 0;
+    const WHEEL_COOLDOWN = 800; // ms between wheel-triggered slides
+
     const handleWheel = (e) => {
       // Only handle on desktop
-      if (window.innerWidth > 768) {
-        e.preventDefault();
-        setIsScrolling(true);
+      if (window.innerWidth > 768 && isInHeroSection.current) {
+        const now = Date.now();
         
-        if (e.deltaY > 0) {
-          // Scroll down - next image
-          setCurrentBg(prev => (prev + 1) % backgroundImages.length);
-        } else {
-          // Scroll up - previous image
-          setCurrentBg(prev => (prev - 1 + backgroundImages.length) % backgroundImages.length);
+        // Cooldown check to prevent rapid firing
+        if (now - lastWheelTime < WHEEL_COOLDOWN) {
+          return;
         }
-        
-        setScrollProgress(((currentBg + 1) / backgroundImages.length) * 100);
-        setTimeout(() => setIsScrolling(false), 1000);
+
+        // Only handle significant wheel movements
+        if (Math.abs(e.deltaY) > 30) {
+          setIsScrolling(true);
+          lastWheelTime = now;
+          
+          if (e.deltaY > 0) {
+            // Scroll down - next image
+            setCurrentBg(prev => (prev + 1) % backgroundImages.length);
+          } else {
+            // Scroll up - previous image
+            setCurrentBg(prev => (prev - 1 + backgroundImages.length) % backgroundImages.length);
+          }
+          
+          setScrollProgress(((currentBg + 1) / backgroundImages.length) * 100);
+          
+          if (wheelTimeout) clearTimeout(wheelTimeout);
+          wheelTimeout = setTimeout(() => {
+            setIsScrolling(false);
+          }, 500);
+        }
       }
     };
 
-    const element = homeRef.current;
+    const element = heroRef.current;
     if (element && window.innerWidth > 768) {
-      element.addEventListener('wheel', handleWheel, { passive: false });
+      // Use passive: true to avoid blocking scrolling
+      element.addEventListener('wheel', handleWheel, { passive: true });
       
       return () => {
         element.removeEventListener('wheel', handleWheel);
+        if (wheelTimeout) clearTimeout(wheelTimeout);
       };
     }
   }, [currentBg, backgroundImages.length]);
 
-  // Handle touch events for mobile (separate from scroll)
+  // Handle touch events for mobile - IMPROVED
   useEffect(() => {
+    let touchTimeout = null;
+    const TOUCH_COOLDOWN = 1000; // ms between touch-triggered slides
+
     const handleTouchStart = (e) => {
-      if (window.innerWidth <= 768) { // Only on mobile
+      if (window.innerWidth <= 768) {
         touchStartRef.current = e.touches[0].clientY;
         touchStartTimeRef.current = Date.now();
         isTouchInteractingRef.current = true;
@@ -246,8 +287,8 @@ const Home = () => {
         const diff = touchStartRef.current - touchEndY;
         const timeDiff = touchEndTime - touchStartTimeRef.current;
         
-        // Only trigger on quick swipes (less than 300ms) with significant movement
-        if (timeDiff < 300 && Math.abs(diff) > 50) {
+        // Only trigger on intentional swipes (quick, significant movement)
+        if (timeDiff < 300 && Math.abs(diff) > 80) {
           setIsScrolling(true);
           
           if (diff > 0) {
@@ -259,17 +300,19 @@ const Home = () => {
           }
           
           setScrollProgress(((currentBg + 1) / backgroundImages.length) * 100);
-          setTimeout(() => {
+          
+          if (touchTimeout) clearTimeout(touchTimeout);
+          touchTimeout = setTimeout(() => {
             setIsScrolling(false);
             isTouchInteractingRef.current = false;
-          }, 1000);
+          }, TOUCH_COOLDOWN);
         } else {
           isTouchInteractingRef.current = false;
         }
       }
     };
 
-    const element = homeRef.current;
+    const element = heroRef.current;
     if (element) {
       element.addEventListener('touchstart', handleTouchStart, { passive: true });
       element.addEventListener('touchend', handleTouchEnd, { passive: true });
@@ -277,6 +320,7 @@ const Home = () => {
       return () => {
         element.removeEventListener('touchstart', handleTouchStart);
         element.removeEventListener('touchend', handleTouchEnd);
+        if (touchTimeout) clearTimeout(touchTimeout);
       };
     }
   }, [currentBg, backgroundImages.length]);
@@ -285,14 +329,14 @@ const Home = () => {
   const nextImage = () => {
     setIsScrolling(true);
     setCurrentBg(prev => (prev + 1) % backgroundImages.length);
-    setScrollProgress(((currentBg + 2) % backgroundImages.length) * (100 / backgroundImages.length));
+    setScrollProgress(((currentBg + 1) % backgroundImages.length + 1) * (100 / backgroundImages.length));
     setTimeout(() => setIsScrolling(false), 300);
   };
 
   const prevImage = () => {
     setIsScrolling(true);
     setCurrentBg(prev => (prev - 1 + backgroundImages.length) % backgroundImages.length);
-    setScrollProgress(((currentBg) % backgroundImages.length) * (100 / backgroundImages.length));
+    setScrollProgress((currentBg % backgroundImages.length) * (100 / backgroundImages.length));
     setTimeout(() => setIsScrolling(false), 300);
   };
 
@@ -316,7 +360,14 @@ const Home = () => {
   const scrollToContent = () => {
     const nextSection = document.querySelector('.services-section');
     if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = window.innerWidth <= 768 ? 80 : 100;
+      const elementPosition = nextSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -335,9 +386,9 @@ const Home = () => {
   };
 
   return (
-    <div className="home-container" ref={homeRef}>
+    <div className="home-container page-mobile-fix" ref={homeRef}>
       {/* Hero Section with Image Scroll */}
-      <div className="image-scroll-section">
+      <div className="image-scroll-section" ref={heroRef}>
         {backgroundImages.map((img, index) => (
           <motion.div 
             key={index}
