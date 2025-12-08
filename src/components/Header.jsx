@@ -199,7 +199,7 @@ export default function Header() {
                   </Link>
                 </li>
               ))}
-              <li className="header-mobile-btn-container">
+              {/* <li className="header-mobile-btn-container">
                 <Link
                   to="/contact"
                   className="header-btn-touch-mobile-full"
@@ -208,7 +208,7 @@ export default function Header() {
                   Get in Touch
                   <span className="mobile-btn-arrow">→</span>
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
