@@ -430,7 +430,6 @@ const Services = () => {
           <motion.div 
             className="services-hero-stats"
             variants={staggerContainer}
-            style={{marginLeft:'-0px'}}
           >
             <motion.div 
               className="services-stat-item"

@@ -386,7 +386,7 @@ const Home = () => {
   };
 
   return (
-    <div className="home-container page-mobile-fix" ref={homeRef}>
+    <div className="home-container page-mobile-fix" ref={homeRef} style={{marginTop:'60px'}}>
       {/* Hero Section with Image Scroll */}
       <div className="image-scroll-section" ref={heroRef}>
         {backgroundImages.map((img, index) => (

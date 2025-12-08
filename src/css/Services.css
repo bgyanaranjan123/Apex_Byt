@@ -43,6 +43,8 @@ body {
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
+    margin-top: 40px;
+
   position: relative;
 }
 
@@ -183,9 +185,10 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
   max-width: 900px;
+  place-content: center;
   margin: 0 auto;
   padding: 2.5rem;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.418);
   backdrop-filter: blur(10px);
   border-radius: 1.5rem;
   border: 1px solid var(--services-gray-200);

@@ -40,6 +40,8 @@ body {
 
 .about-page-container {
   width: 100%;
+    margin-top: 40px;
+
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
