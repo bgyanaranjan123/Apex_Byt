@@ -29,6 +29,9 @@ const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const homeRef = useRef(null);
   const testimonialIntervalRef = useRef(null);
+  const touchStartRef = useRef(0);
+  const touchStartTimeRef = useRef(0);
+  const isTouchInteractingRef = useRef(false);
   
   const backgroundImages = [
     '/home.jpg',
@@ -174,13 +177,13 @@ const Home = () => {
   // Auto-slide background images
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!isScrolling) {
+      if (!isScrolling && !isTouchInteractingRef.current) {
         setCurrentBg((prev) => (prev + 1) % backgroundImages.length);
       }
     }, 5000);
     
     return () => clearInterval(interval);
-  }, [isScrolling]);
+  }, [isScrolling, backgroundImages.length]);
 
   // Auto-slide testimonials
   useEffect(() => {
@@ -195,60 +198,85 @@ const Home = () => {
     };
   }, [testimonials.length]);
 
-  // Manual scroll through images
+  // Handle wheel events (desktop only)
   useEffect(() => {
     const handleWheel = (e) => {
-      if (Math.abs(e.deltaY) > 0) {
+      // Only handle on desktop
+      if (window.innerWidth > 768) {
+        e.preventDefault();
         setIsScrolling(true);
         
         if (e.deltaY > 0) {
+          // Scroll down - next image
           setCurrentBg(prev => (prev + 1) % backgroundImages.length);
         } else {
+          // Scroll up - previous image
           setCurrentBg(prev => (prev - 1 + backgroundImages.length) % backgroundImages.length);
         }
         
-        setTimeout(() => setIsScrolling(false), 500);
         setScrollProgress(((currentBg + 1) / backgroundImages.length) * 100);
+        setTimeout(() => setIsScrolling(false), 1000);
+      }
+    };
+
+    const element = homeRef.current;
+    if (element && window.innerWidth > 768) {
+      element.addEventListener('wheel', handleWheel, { passive: false });
+      
+      return () => {
+        element.removeEventListener('wheel', handleWheel);
+      };
+    }
+  }, [currentBg, backgroundImages.length]);
+
+  // Handle touch events for mobile (separate from scroll)
+  useEffect(() => {
+    const handleTouchStart = (e) => {
+      if (window.innerWidth <= 768) { // Only on mobile
+        touchStartRef.current = e.touches[0].clientY;
+        touchStartTimeRef.current = Date.now();
+        isTouchInteractingRef.current = true;
+      }
+    };
+
+    const handleTouchEnd = (e) => {
+      if (window.innerWidth <= 768 && isTouchInteractingRef.current) {
+        const touchEndY = e.changedTouches[0].clientY;
+        const touchEndTime = Date.now();
+        const diff = touchStartRef.current - touchEndY;
+        const timeDiff = touchEndTime - touchStartTimeRef.current;
+        
+        // Only trigger on quick swipes (less than 300ms) with significant movement
+        if (timeDiff < 300 && Math.abs(diff) > 50) {
+          setIsScrolling(true);
+          
+          if (diff > 0) {
+            // Swipe up - next image
+            setCurrentBg(prev => (prev + 1) % backgroundImages.length);
+          } else {
+            // Swipe down - previous image
+            setCurrentBg(prev => (prev - 1 + backgroundImages.length) % backgroundImages.length);
+          }
+          
+          setScrollProgress(((currentBg + 1) / backgroundImages.length) * 100);
+          setTimeout(() => {
+            setIsScrolling(false);
+            isTouchInteractingRef.current = false;
+          }, 1000);
+        } else {
+          isTouchInteractingRef.current = false;
+        }
       }
     };
 
     const element = homeRef.current;
     if (element) {
-      element.addEventListener('wheel', handleWheel);
-      
-      let touchStartY = 0;
-      
-      const handleTouchStart = (e) => {
-        touchStartY = e.touches[0].clientY;
-      };
-      
-      const handleTouchMove = (e) => {
-        e.preventDefault();
-        const touchEndY = e.touches[0].clientY;
-        const diff = touchStartY - touchEndY;
-        
-        if (Math.abs(diff) > 50) {
-          setIsScrolling(true);
-          
-          if (diff > 0) {
-            setCurrentBg(prev => (prev + 1) % backgroundImages.length);
-          } else {
-            setCurrentBg(prev => (prev - 1 + backgroundImages.length) % backgroundImages.length);
-          }
-          
-          touchStartY = touchEndY;
-          setTimeout(() => setIsScrolling(false), 500);
-          setScrollProgress(((currentBg + 1) / backgroundImages.length) * 100);
-        }
-      };
-      
       element.addEventListener('touchstart', handleTouchStart, { passive: true });
-      element.addEventListener('touchmove', handleTouchMove, { passive: false });
+      element.addEventListener('touchend', handleTouchEnd, { passive: true });
       
       return () => {
-        element.removeEventListener('wheel', handleWheel);
         element.removeEventListener('touchstart', handleTouchStart);
-        element.removeEventListener('touchmove', handleTouchMove);
+        element.removeEventListener('touchend', handleTouchEnd);
       };
     }
   }, [currentBg, backgroundImages.length]);
@@ -371,6 +399,7 @@ const Home = () => {
               key={index}
               className={`dot ${index === currentBg ? 'active' : ''}`}
               onClick={() => goToImage(index)}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
@@ -378,12 +407,6 @@ const Home = () => {
         <div className="scroll-progress">
           <div className="progress-bar" style={{ width: `${scrollProgress}%` }} />
         </div>
-
-        {/* <div className="image-counter">
-          <span className="current-number">{currentBg + 1}</span>
-          <span className="divider">/</span>
-          <span className="total-number">{backgroundImages.length}</span>
-        </div> */}
       </div>
 
       {/* Services Section */}
@@ -392,7 +415,7 @@ const Home = () => {
           className="section-header"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
           <h2 className="section-title">Our Services</h2>
@@ -406,7 +429,7 @@ const Home = () => {
               className="service-card"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -10, transition: { duration: 0.2 } }}
             >
@@ -440,7 +463,7 @@ const Home = () => {
             className="features-content"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
           >
             <h2 className="features-title">Why Choose Apexbyte?</h2>
@@ -471,7 +494,7 @@ const Home = () => {
             className="features-stats"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h3 className="stats-title">Our Impact in Numbers</h3>
@@ -502,7 +525,7 @@ const Home = () => {
           className="section-header"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
           <h2 className="section-title">What Our Clients Say</h2>
@@ -544,6 +567,7 @@ const Home = () => {
                 key={index}
                 className={`testimonial-dot ${index === currentTestimonial ? 'active' : ''}`}
                 onClick={() => goToTestimonial(index)}
+                aria-label={`Go to testimonial ${index + 1}`}
               />
             ))}
           </div>
@@ -557,7 +581,7 @@ const Home = () => {
             className="process-content"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
           >
             <h2 className="process-title">Our Development Process</h2>
@@ -590,7 +614,7 @@ const Home = () => {
             className="process-image"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
             whileHover={{ scale: 1.05 }}
           >
@@ -626,7 +650,7 @@ const Home = () => {
           className="cta-container"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
           <div className="cta-content">
