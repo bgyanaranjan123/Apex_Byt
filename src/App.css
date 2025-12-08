@@ -40,3 +40,45 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* App.css or global styles */
+/* Mobile Header Overlap Fix */
+
+/* For all pages with common class structure */
+.page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  /* Add top padding to all pages */
+  #root > div > div:not(header):not(.header):not(nav) {
+    padding-top: 80px;
+  }
+  
+  /* Specific fix for common page containers */
+  div[class*="container"]:not(.header-container):not(.nav-container) {
+    margin-top: 80px;
+    padding-top: 1rem;
+  }
+  
+  /* Fix for pages with 'page' in class name */
+  div[class*="page"] {
+    margin-top: 80px;
+    padding-top: 1rem;
+  }
+  
+  /* Ensure content starts below header */
+  .content-area {
+    padding-top: 80px;
+  }
+}
+
+/* Quick universal fix */
+@media (max-width: 768px) {
+  /* This will affect all pages */
+  body > div > div:not(header) {
+    padding-top: 80px;
+  }
+}
