@@ -88,7 +88,7 @@ export default function Header() {
                 onClick={() => handleNavClick('/')}
               >
                 <span className="header-logo-gradient">
-                  <img src="/logo.png" alt="logo" className={`header-logo-img ${scrolled ? 'logo-shrink' : ''}`} />
+                  <img src="/apex.png" alt="logo" className={`header-logo-img ${scrolled ? 'logo-shrink' : ''}`} />
                   {activeAnimation === '/' && <span className="logo-click-ripple"></span>}
                 </span>
                 {activeAnimation === '/' && <span className="logo-glow"></span>}
