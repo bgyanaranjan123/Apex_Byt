@@ -635,8 +635,8 @@ const Home = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="process-title">Our Development Process</h2>
-            <p className="process-description">
+            <h2 className="process-title" style={{fontSize:'2.5rem', marginTop:'-20px'}}>Our Development Process</h2>
+            <p className="process-description" style={{fontSize:'1.1rem', padding:'10px'}}>
               A structured approach to ensure project success from inception to deployment and beyond.
             </p>
             <div className="process-steps">
@@ -691,6 +691,7 @@ const Home = () => {
                 ))}
               </div>
             </div>
+            <img src="/hero1.jpg" alt=""  style={{height:'500px', width:'100%', paddingTop:'80px', borderRadius:'10px'}}/>
           </motion.div>
         </div>
       </section>

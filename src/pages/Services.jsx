@@ -732,20 +732,7 @@ const Services = () => {
                   <p className="services-step-description">{step.description}</p>
                 </div>
                 
-                {index < 3 && (
-                  <motion.div 
-                    className="services-step-connector"
-                    animate={{ 
-                      width: ['0%', '100%', '0%'],
-                      opacity: [0, 1, 0]
-                    }}
-                    transition={{ 
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: index * 0.5
-                    }}
-                  />
-                )}
+                
               </motion.div>
             ))}
           </div>
