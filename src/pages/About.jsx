@@ -14,21 +14,52 @@ import {
   FaUserTie,
   FaCode,
   FaNetworkWired,
-  FaChevronDown
+  FaChevronDown,
+  FaBriefcase,
+  FaGraduationCap,
+  FaDollarSign,
+  FaBuilding
 } from 'react-icons/fa';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Link, useNavigate } from 'react-router-dom'; // Added useNavigate
 import { AdvancedSkyBubbleWave } from "../components/AdvanceSkyBubbleWave";
 import '../css/About.css';
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate(); // For navigation
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
+  // Handle navigation for CTA buttons
+  const handleStartJourney = () => {
+    navigate('/contact');
+  };
+
+  const handleScheduleConsultation = () => {
+    // Navigate to contact page with consultation parameter
+    navigate('/contact?type=consultation');
+    // Alternatively, you could open a modal or redirect to a specific team page
+    // window.location.href = '/team/consultation';
+  };
+
+  const handleMeetTeam = () => {
+  const section = document.getElementById("leadership-team");
+  if (section) {
+    section.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+};
+
+
+
   return (
+    
     <div className="about-page-container">
       <div className="about-hero-wave-container">
         <AdvancedSkyBubbleWave 
@@ -148,7 +179,7 @@ const About = () => {
         </motion.div>
       </section>
 
-      {/* Company Background */}
+      {/* Company Background - UPDATED CONTENT */}
       <AnimatedSection id="background">
         <div className="about-section-container">
           <motion.div
@@ -157,10 +188,10 @@ const About = () => {
             transition={{ duration: 0.6 }}
             className="about-section-header"
           >
-            <span className="about-section-label">Our Story</span>
+            <span className="about-section-label">Our Journey</span>
             <h2 className="about-section-title">Company Background</h2>
             <p className="about-section-subtitle">
-              Founded with a vision to bridge the gap between technology innovation and business success
+              From Vision to Reality: Our Evolution in Technology and Talent Solutions
             </p>
           </motion.div>
           
@@ -173,14 +204,14 @@ const About = () => {
             >
               <div className="about-content-card">
                 <div className="about-card-icon">
-                  <FaRocket />
+                  <FaBriefcase />
                 </div>
-                <h3>Our Foundation</h3>
+                <h3>Our Founding Vision</h3>
                 <p>
-                  ApexByte was founded in 2015 with a clear mission: to deliver exceptional 
-                  digital transformation and IT talent solutions to businesses worldwide. 
-                  What started as a small team of passionate technologists has grown into 
-                  a global consulting firm recognized for innovation and excellence.
+                  ApexByte IT Consulting & Staffing was established in 2018 with a clear mission: to bridge 
+                  the gap between innovative technology solutions and exceptional talent. Recognizing the 
+                  growing need for specialized IT expertise in a rapidly evolving digital landscape, we set 
+                  out to create a platform that connects businesses with top-tier technology professionals.
                 </p>
               </div>
               
@@ -188,25 +219,26 @@ const About = () => {
                 <div className="about-card-icon">
                   <FaChartLine />
                 </div>
-                <h3>Our Growth Journey</h3>
+                <h3>Strategic Growth & Expansion</h3>
                 <p>
-                  From our humble beginnings, we've expanded our services across 
-                  multiple continents, serving Fortune 500 companies and startups alike. 
-                  Our journey is marked by continuous learning, adaptation to emerging 
-                  technologies, and unwavering commitment to client success.
+                  Starting as a boutique IT staffing firm, we quickly expanded our services to include 
+                  comprehensive IT consulting, digital transformation solutions, and managed services. 
+                  Our growth has been fueled by our commitment to quality, client satisfaction, and 
+                  staying ahead of technological trends. Today, we serve clients across multiple industries 
+                  and continents.
                 </p>
               </div>
               
               <div className="about-content-card">
                 <div className="about-card-icon">
-                  <FaGlobeAmericas />
+                  <FaGraduationCap />
                 </div>
-                <h3>Global Presence</h3>
+                <h3>Industry Recognition & Awards</h3>
                 <p>
-                  With offices in 12 countries and remote teams across 50+ nations, 
-                  we bring diverse perspectives and global best practices to every project. 
-                  Our distributed model allows us to tap into the world's best talent 
-                  while maintaining local market understanding.
+                  Our dedication to excellence has earned us recognition as one of the fastest-growing 
+                  IT consulting firms. We've received multiple industry awards for innovation in staffing 
+                  solutions and have been featured in leading technology publications for our groundbreaking 
+                  approaches to digital transformation and talent development.
                 </p>
               </div>
             </motion.div>
@@ -218,22 +250,25 @@ const About = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <div className="about-timeline">
-                {[2015, 2017, 2019, 2021, 2023].map((year, index) => (
+                {[
+                  { year: 2018, milestone: 'Company Founded' },
+                  { year: 2019, milestone: 'First 100 Clients' },
+                  { year: 2020, milestone: 'Digital Transformation Division' },
+                  { year: 2021, milestone: 'International Expansion' },
+                  { year: 2022, milestone: 'AI & ML Solutions' },
+                  { year: 2023, milestone: 'Industry Awards' }
+                ].map((item, index) => (
                   <motion.div
-                    key={year}
+                    key={item.year}
                     className="about-timeline-point"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 + 0.6 }}
                   >
                     <div className="about-point-dot"></div>
-                    <div className="about-point-year">{year}</div>
+                    <div className="about-point-year">{item.year}</div>
                     <div className="about-point-milestone">
-                      {index === 0 && 'Founded'}
-                      {index === 1 && 'Global Expansion'}
-                      {index === 2 && '500+ Projects'}
-                      {index === 3 && 'AI Integration'}
-                      {index === 4 && 'Industry Leader'}
+                      {item.milestone}
                     </div>
                   </motion.div>
                 ))}
@@ -243,7 +278,7 @@ const About = () => {
         </div>
       </AnimatedSection>
 
-      {/* Vision & Mission */}
+      {/* Vision & Mission - UPDATED CONTENT */}
       <section className="about-vision-mission-section">
         <div className="about-section-container">
           <div className="about-vision-mission-grid">
@@ -260,14 +295,15 @@ const About = () => {
                 <h2 className="about-card-title">Our Vision</h2>
               </div>
               <p className="about-card-content">
-                To be the global leader in IT consulting and staffing, recognized for 
-                transforming businesses through innovative technology solutions and 
-                exceptional talent development.
+                To be the most trusted global partner for IT consulting and staffing solutions, 
+                recognized for transforming businesses through innovative technology and exceptional 
+                talent. We envision a future where every organization, regardless of size or industry, 
+                has access to the technology expertise needed to thrive in the digital age.
               </p>
               <div className="about-vision-features">
                 <div className="about-feature">
                   <FaStar className="about-feature-icon" />
-                  <span>Global Leadership</span>
+                  <span>Global Technology Leadership</span>
                 </div>
                 <div className="about-feature">
                   <FaStar className="about-feature-icon" />
@@ -275,7 +311,7 @@ const About = () => {
                 </div>
                 <div className="about-feature">
                   <FaStar className="about-feature-icon" />
-                  <span>Industry Recognition</span>
+                  <span>Trusted Partnership</span>
                 </div>
               </div>
             </motion.div>
@@ -293,22 +329,24 @@ const About = () => {
                 <h2 className="about-card-title">Our Mission</h2>
               </div>
               <p className="about-card-content">
-                To provide top-tier technology and human resource solutions that accelerate 
-                business growth, foster innovation, and create lasting value for our clients, 
-                partners, and employees.
+                To provide comprehensive IT consulting and staffing solutions that accelerate 
+                digital transformation, drive business growth, and create lasting value. We 
+                are committed to delivering excellence through customized strategies, cutting-edge 
+                technology, and world-class talent that empowers organizations to achieve their 
+                full potential in an increasingly digital world.
               </p>
               <div className="about-mission-objectives">
                 <div className="about-objective">
                   <div className="about-objective-number">01</div>
-                  <div className="about-objective-text">Accelerate Business Growth</div>
+                  <div className="about-objective-text">Accelerate Digital Transformation</div>
                 </div>
                 <div className="about-objective">
                   <div className="about-objective-number">02</div>
-                  <div className="about-objective-text">Foster Innovation Culture</div>
+                  <div className="about-objective-text">Drive Sustainable Business Growth</div>
                 </div>
                 <div className="about-objective">
                   <div className="about-objective-number">03</div>
-                  <div className="about-objective-text">Deliver Lasting Value</div>
+                  <div className="about-objective-text">Deliver Lasting Client Value</div>
                 </div>
               </div>
             </motion.div>
@@ -316,7 +354,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Core Values */}
+      {/* Core Values - UPDATED CONTENT */}
       <AnimatedSection id="values">
         <div className="about-section-container">
           <motion.div
@@ -325,15 +363,58 @@ const About = () => {
             transition={{ duration: 0.6 }}
             className="about-section-header"
           >
-            <span className="about-section-label">What We Stand For</span>
+            <span className="about-section-label">Our Foundation</span>
             <h2 className="about-section-title">Our Core Values</h2>
             <p className="about-section-subtitle">
-              The principles that guide every decision and action at ApexByte
+              The principles that guide every decision, action, and partnership at ApexByte
             </p>
           </motion.div>
           
           <div className="about-values-grid">
-            {valuesData.map((value, index) => (
+            {[
+              {
+                id: 1,
+                icon: <FaShieldAlt />,
+                title: 'Integrity & Trust',
+                description: 'We build lasting relationships based on honesty, transparency, and ethical practices. Every promise made is a promise kept, and we maintain the highest standards of professionalism in all our interactions.',
+                pillars: ['Ethical Excellence', 'Transparency', 'Reliability']
+              },
+              {
+                id: 2,
+                icon: <FaUsers />,
+                title: 'Client-Centric Approach',
+                description: 'Our clients success is our success. We listen carefully, understand deeply, and deliver solutions that not only meet but exceed expectations. Every project is approached with a partnership mindset.',
+                pillars: ['Partnership', 'Custom Solutions', 'Exceeding Expectations']
+              },
+              {
+                id: 3,
+                icon: <FaCogs />,
+                title: 'Innovation & Excellence',
+                description: 'We embrace change and continuously seek better ways to solve problems. Our commitment to excellence drives us to deliver cutting-edge solutions that provide tangible business value.',
+                pillars: ['Continuous Improvement', 'Cutting-edge Technology', 'Business Value']
+              },
+              {
+                id: 4,
+                icon: <FaHandshake />,
+                title: 'Collaboration & Teamwork',
+                description: 'Great things happen when talented people work together. We foster a collaborative environment where diverse perspectives are valued, and collective intelligence leads to breakthrough solutions.',
+                pillars: ['Team Synergy', 'Diversity', 'Collective Intelligence']
+              },
+              {
+                id: 5,
+                icon: <FaAward />,
+                title: 'Quality & Precision',
+                description: 'From talent selection to solution delivery, we maintain uncompromising standards of quality. Our meticulous attention to detail ensures that every deliverable meets the highest industry standards.',
+                pillars: ['Attention to Detail', 'Industry Standards', 'Uncompromising Quality']
+              },
+              {
+                id: 6,
+                icon: <FaDollarSign />,
+                title: 'Value Creation',
+                description: 'We measure our success by the value we create for our clients. Every solution is designed to deliver measurable ROI, operational efficiency, and competitive advantage.',
+                pillars: ['ROI Focus', 'Operational Efficiency', 'Competitive Advantage']
+              }
+            ].map((value, index) => (
               <motion.div
                 key={value.id}
                 className="about-value-card"
@@ -362,8 +443,8 @@ const About = () => {
         </div>
       </AnimatedSection>
 
-      {/* Leadership Team */}
-      <section className="about-leadership-section">
+      {/* Leadership Team - UPDATED CONTENT */}
+<section id="leadership-team" className="about-leadership-section">
         <div className="about-section-container">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -371,15 +452,56 @@ const About = () => {
             transition={{ duration: 0.6 }}
             className="about-section-header"
           >
-            <span className="about-section-label">Meet Our Leaders</span>
+            <span className="about-section-label">Meet Our Experts</span>
             <h2 className="about-section-title">Leadership Team</h2>
             <p className="about-section-subtitle">
-              Visionary leaders driving innovation and growth
+              Visionary leaders with decades of combined experience in technology and talent solutions
             </p>
           </motion.div>
           
           <div className="about-leadership-grid">
-            {leadershipData.map((leader, index) => (
+            {[
+              {
+                id: 1,
+                name: 'Michael Rodriguez',
+                role: 'CEO & Founder',
+                bio: '20+ years in technology leadership with extensive experience in IT consulting and digital transformation. Founded ApexByte with a vision to revolutionize how businesses access technology talent.',
+                expertise: ['Digital Strategy', 'Business Transformation', 'Leadership'],
+                image: '/img.jpg',
+                linkedin: '#',
+                twitter: '#'
+              },
+              {
+                id: 2,
+                name: 'Sarah Chen',
+                role: 'CTO',
+                bio: 'Former Google engineering lead with expertise in scalable architecture, cloud solutions, and AI/ML. Drives technological innovation and ensures our solutions remain at the cutting edge.',
+                expertise: ['Cloud Architecture', 'AI/ML', 'Technical Innovation'],
+                image: '/img1.jpg',
+                linkedin: '#',
+                twitter: '#'
+              },
+              {
+                id: 3,
+                name: 'David Thompson',
+                role: 'Head of Staffing Solutions',
+                bio: 'HR technology specialist with 15 years experience in talent acquisition and management. Pioneered our proprietary talent matching algorithm that ensures perfect client-talent fit.',
+                expertise: ['Talent Strategy', 'HR Technology', 'Client Relations'],
+                image: '/img3.jpg',
+                linkedin: '#',
+                twitter: '#'
+              },
+              {
+                id: 4,
+                name: 'Jennifer Lee',
+                role: 'VP of Consulting Services',
+                bio: 'Digital transformation expert with background in enterprise solutions at Fortune 500 companies. Leads our consulting division in delivering measurable business outcomes.',
+                expertise: ['Digital Transformation', 'Enterprise Solutions', 'Business Outcomes'],
+                image: '/img4.jpg',
+                linkedin: '#',
+                twitter: '#'
+              }
+            ].map((leader, index) => (
               <motion.div
                 key={leader.id}
                 className="about-leader-card"
@@ -392,9 +514,8 @@ const About = () => {
                   <img src={leader.image} alt={leader.name} />
                   <div className="about-leader-overlay">
                     <div className="about-social-links">
-                      <a href="#" className="about-social-link">in</a>
-                      <a href="#" className="about-social-link">tw</a>
-                      <a href="#" className="about-social-link">li</a>
+                      <a href={leader.linkedin} className="about-social-link" target="_blank" rel="noopener noreferrer">in</a>
+                      <a href={leader.twitter} className="about-social-link" target="_blank" rel="noopener noreferrer">tw</a>
                     </div>
                   </div>
                 </div>
@@ -414,7 +535,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Why Choose ApexByte */}
+      {/* Why Choose ApexByte - UPDATED CONTENT */}
       <section className="about-why-choose-section">
         <div className="about-section-container">
           <motion.div
@@ -423,10 +544,10 @@ const About = () => {
             transition={{ duration: 0.6 }}
             className="about-section-header"
           >
-            <span className="about-section-label">Our Advantages</span>
+            <span className="about-section-label">Our Differentiators</span>
             <h2 className="about-section-title">Why Choose ApexByte</h2>
             <p className="about-section-subtitle">
-              Discover what sets us apart in the competitive landscape
+              Discover what makes us the preferred partner for IT consulting and staffing solutions
             </p>
           </motion.div>
           
@@ -438,25 +559,26 @@ const About = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h3>Tailored Solutions for Every Business</h3>
+                <h3>Comprehensive IT Solutions Partner</h3>
                 <p>
-                  We don't believe in one-size-fits-all solutions. Every client 
-                  receives a customized strategy designed to address their unique 
-                  challenges and maximize their specific opportunities.
+                  We offer end-to-end IT consulting and staffing services designed to address your 
+                  unique business challenges. Unlike traditional staffing agencies or consulting firms, 
+                  we provide integrated solutions that combine strategic consulting with exceptional 
+                  talent placement.
                 </p>
                 
                 <div className="about-advantage-stats">
                   <div className="about-advantage-stat">
-                    <div className="about-stat-number">100%</div>
-                    <div className="about-stat-label">Custom Solutions</div>
+                    <div className="about-stat-number">360°</div>
+                    <div className="about-stat-label">Holistic Approach</div>
                   </div>
                   <div className="about-advantage-stat">
-                    <div className="about-stat-number">24/7</div>
-                    <div className="about-stat-label">Support</div>
+                    <div className="about-stat-number">95%</div>
+                    <div className="about-stat-label">Retention Rate</div>
                   </div>
                   <div className="about-advantage-stat">
-                    <div className="about-stat-number">Agile</div>
-                    <div className="about-stat-label">Methodology</div>
+                    <div className="about-stat-number">48h</div>
+                    <div className="about-stat-label">Rapid Deployment</div>
                   </div>
                 </div>
               </motion.div>
@@ -464,7 +586,44 @@ const About = () => {
             
             <div className="about-advantages-right">
               <div className="about-advantages-grid">
-                {advantagesData.map((advantage, index) => (
+                {[
+                  {
+                    id: 1,
+                    icon: <FaBuilding />,
+                    title: 'Industry Specialization',
+                    description: 'Deep expertise across multiple sectors including finance, healthcare, retail, and manufacturing with tailored solutions for each industry.'
+                  },
+                  {
+                    id: 2,
+                    icon: <FaNetworkWired />,
+                    title: 'Global Talent Network',
+                    description: 'Access to vetted technology professionals from around the world, matched through our intelligent talent-matching platform.'
+                  },
+                  {
+                    id: 3,
+                    icon: <FaChartLine />,
+                    title: 'Proven ROI',
+                    description: 'Track record of delivering measurable business outcomes and significant ROI through optimized technology investments and talent solutions.'
+                  },
+                  {
+                    id: 4,
+                    icon: <FaShieldAlt />,
+                    title: 'Risk Mitigation',
+                    description: 'Comprehensive screening, continuous performance monitoring, and replacement guarantees to ensure project success and minimize risk.'
+                  },
+                  {
+                    id: 5,
+                    icon: <FaGraduationCap />,
+                    title: 'Continuous Learning',
+                    description: 'Regular upskilling programs for our consultants to ensure they stay current with the latest technologies and industry best practices.'
+                  },
+                  {
+                    id: 6,
+                    icon: <FaHandshake />,
+                    title: 'Long-term Partnership',
+                    description: 'We view every engagement as a long-term partnership, committed to your sustained success beyond project completion.'
+                  }
+                ].map((advantage, index) => (
                   <motion.div
                     key={advantage.id}
                     className="about-advantage-item"
@@ -490,20 +649,20 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <h3>Certified Professionals</h3>
+            <h3>Certifications & Partnerships</h3>
             <div className="about-certifications">
-              <span className="about-certification-badge">AWS</span>
-              <span className="about-certification-badge">Azure</span>
+              <span className="about-certification-badge">AWS Partner</span>
+              <span className="about-certification-badge">Microsoft Gold</span>
               <span className="about-certification-badge">Google Cloud</span>
-              <span className="about-certification-badge">PMP</span>
-              <span className="about-certification-badge">Scrum</span>
-              <span className="about-certification-badge">ITIL</span>
+              <span className="about-certification-badge">PMP Certified</span>
+              <span className="about-certification-badge">Scrum Alliance</span>
+              <span className="about-certification-badge">ITIL v4</span>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section - FIXED NAVIGATION */}
       <motion.section
         className="about-cta-section"
         initial={{ opacity: 0 }}
@@ -515,13 +674,14 @@ const About = () => {
             <h2 className="about-cta-title">Ready to Transform Your Business?</h2>
             <p className="about-cta-description">
               Join hundreds of successful companies who trust ApexByte for their 
-              digital transformation journey. Let's build something amazing together.
+              digital transformation and staffing needs. Let's build something amazing together.
             </p>
             <div className="about-cta-buttons">
               <motion.button
                 className="about-cta-button about-cta-primary"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={handleStartJourney}
               >
                 Start Your Journey
               </motion.button>
@@ -529,10 +689,23 @@ const About = () => {
                 className="about-cta-button about-cta-secondary"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={handleScheduleConsultation}
               >
                 Schedule a Consultation
               </motion.button>
+            <motion.button
+  className="about-cta-button about-cta-tertiary"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  onClick={handleMeetTeam}
+>
+  Meet Our Team
+</motion.button>
+
             </div>
+            <p className="about-cta-note">
+              Or contact us directly at <a href="mailto:sales@apexbyteit.com">sales@apexbyteit.com</a> | <a href="tel:+15551234567">+1 (555) 123-4567</a>
+            </p>
           </div>
         </div>
       </motion.section>
@@ -571,106 +744,5 @@ const AnimatedSection = ({ children, id }) => {
     </motion.section>
   );
 };
-
-// Data
-const valuesData = [
-  {
-    id: 1,
-    icon: <FaCogs />,
-    title: 'Innovation',
-    description: 'Continuously pushing boundaries and embracing cutting-edge technologies to deliver forward-thinking solutions.',
-    pillars: ['Technology', 'Creativity', 'Future-ready']
-  },
-  {
-    id: 2,
-    icon: <FaShieldAlt />,
-    title: 'Integrity',
-    description: 'Upholding the highest ethical standards in all our dealings, building trust through transparency and honesty.',
-    pillars: ['Ethics', 'Trust', 'Transparency']
-  },
-  {
-    id: 3,
-    icon: <FaUsers />,
-    title: 'Collaboration',
-    description: 'Fostering strong partnerships and teamwork to achieve shared success and exceed expectations.',
-    pillars: ['Teamwork', 'Partnership', 'Unity']
-  },
-  {
-    id: 4,
-    icon: <FaAward />,
-    title: 'Quality',
-    description: 'Delivering excellence in every project with meticulous attention to detail and uncompromising standards.',
-    pillars: ['Excellence', 'Precision', 'Standards']
-  },
-  {
-    id: 5,
-    icon: <FaHeart />,
-    title: 'Excellence',
-    description: 'Striving for the highest level of performance and continuously improving our services and solutions.',
-    pillars: ['Perfection', 'Growth', 'Mastery']
-  }
-];
-
-const leadershipData = [
-  {
-    id: 1,
-    name: 'Alexandra Chen',
-    role: 'CEO & Founder',
-    bio: '20+ years in tech leadership, visionary entrepreneur with 5 successful exits.',
-    expertise: ['Strategy', 'AI/ML', 'Scaling'],
-    image: '/img.jpg'
-  },
-  {
-    id: 2,
-    name: 'Marcus Rodriguez',
-    role: 'CTO',
-    bio: 'Former Google engineer, specializes in scalable architecture and cloud solutions.',
-    expertise: ['Cloud', 'DevOps', 'Security'],
-    image: '/img1.jpg'
-  },
-  {
-    id: 3,
-    name: 'Sarah Johnson',
-    role: 'Head of Talent',
-    bio: 'HR innovator with expertise in building world-class remote engineering teams.',
-    expertise: ['Talent', 'Culture', 'HR Tech'],
-    image: '/img3.jpg'
-  },
-  {
-    id: 4,
-    name: 'David Kim',
-    role: 'VP of Engineering',
-    bio: 'Ex-Microsoft technical lead, expert in enterprise digital transformation.',
-    expertise: ['Enterprise', 'Transformation', 'Agile'],
-    image: '/img4.jpg'
-  }
-];
-
-const advantagesData = [
-  {
-    id: 1,
-    icon: <FaUserTie />,
-    title: 'Industry Expertise',
-    description: 'Deep domain knowledge across multiple industries including finance, healthcare, and e-commerce.'
-  },
-  {
-    id: 2,
-    icon: <FaCode />,
-    title: 'Agile Methodology',
-    description: 'Flexible, iterative approach ensuring rapid delivery and continuous improvement.'
-  },
-  {
-    id: 3,
-    icon: <FaNetworkWired />,
-    title: 'Global Talent Pool',
-    description: 'Access to top 1% of tech talent from around the world, rigorously vetted and certified.'
-  },
-  {
-    id: 4,
-    icon: <FaHandshake />,
-    title: 'Partnership Model',
-    description: 'We work as an extension of your team, not just a vendor, ensuring shared success.'
-  }
-];
 
 export default About;

@@ -2,13 +2,108 @@ import { motion } from "framer-motion";
 import { 
   FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaGithub, 
   FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock, FaYoutube,
-  FaArrowRight, FaRss
+  FaArrowRight, FaRss, FaCheck, FaExclamationTriangle
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import "./Footer.css";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState("");
+  const [agreedToPrivacy, setAgreedToPrivacy] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [subscriptionStatus, setSubscriptionStatus] = useState(null); // null, 'success', 'error'
+  const [message, setMessage] = useState("");
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Validation
+    if (!email) {
+      setSubscriptionStatus('error');
+      setMessage("Please enter your email address");
+      return;
+    }
+    
+    if (!isValidEmail(email)) {
+      setSubscriptionStatus('error');
+      setMessage("Please enter a valid email address");
+      return;
+    }
+    
+    if (!agreedToPrivacy) {
+      setSubscriptionStatus('error');
+      setMessage("Please agree to the privacy policy");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubscriptionStatus(null);
+    setMessage("");
+
+    try {
+      // In a real application, you would make an API call here
+      // Example API call:
+      // const response = await fetch('https://api.apexbyteit.com/newsletter/subscribe', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //     email: email,
+      //     source: 'website_footer',
+      //     timestamp: new Date().toISOString()
+      //   })
+      // });
+
+      // For demo purposes, we'll simulate an API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Simulate successful response
+      const success = Math.random() > 0.1; // 90% success rate for demo
+
+      if (success) {
+        setSubscriptionStatus('success');
+        setMessage("Thank you for subscribing! Check your email for confirmation.");
+        
+        // Clear form after successful submission
+        setTimeout(() => {
+          setEmail("");
+          setAgreedToPrivacy(false);
+        }, 3000);
+        
+        // Auto-hide success message after 5 seconds
+        setTimeout(() => {
+          setSubscriptionStatus(null);
+          setMessage("");
+        }, 5000);
+      } else {
+        setSubscriptionStatus('error');
+        setMessage("Subscription failed. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Newsletter subscription error:", error);
+      setSubscriptionStatus('error');
+      setMessage("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    // Clear any previous error when user starts typing
+    if (subscriptionStatus === 'error') {
+      setSubscriptionStatus(null);
+      setMessage("");
+    }
+  };
 
   return (
     <footer className="footer">
@@ -61,17 +156,7 @@ const Footer = () => {
                   <FaEnvelope className="contact-icon" />
                   <div>
                     <h4>Email Address</h4>
-                    <p>info@apexbyteit.com</p>
-                    <p>support@apexbyteit.com</p>
-                  </div>
-                </div>
-                
-                <div className="contact-item">
-                  <FaClock className="contact-icon" />
-                  <div>
-                    <h4>Working Hours</h4>
-                    <p>Mon - Fri: 9:00 AM - 6:00 PM</p>
-                    <p>Sat: 10:00 AM - 4:00 PM</p>
+                    <p className="emailto"><a href="mailto:hr@apexbyteit.com" >hr@apexbyteit.com</a></p>
                   </div>
                 </div>
               </div>
@@ -106,21 +191,9 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/portfolio">
-                    <FaArrowRight className="link-icon" />
-                    Portfolio
-                  </Link>
-                </li>
-                <li>
                   <Link to="/careers">
                     <FaArrowRight className="link-icon" />
                     Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/blog">
-                    <FaArrowRight className="link-icon" />
-                    Blog
                   </Link>
                 </li>
               </ul>
@@ -137,37 +210,37 @@ const Footer = () => {
               <h3 className="footer-title">Our Services</h3>
               <ul className="services-list">
                 <li>
-                  <Link to="/services/software-development">
+                  <Link to="#">
                     <span className="service-dot"></span>
                     Software Development
                   </Link>
                 </li>
                 <li>
-                  <Link to="/services/cloud-solutions">
+                  <Link to="#">
                     <span className="service-dot"></span>
                     Cloud Solutions
                   </Link>
                 </li>
                 <li>
-                  <Link to="/services/mobile-apps">
+                  <Link to="#">
                     <span className="service-dot"></span>
                     Mobile Applications
                   </Link>
                 </li>
                 <li>
-                  <Link to="/services/web-development">
+                  <Link to="#">
                     <span className="service-dot"></span>
                     Web Development
                   </Link>
                 </li>
                 <li>
-                  <Link to="/services/it-consulting">
+                  <Link to="#">
                     <span className="service-dot"></span>
                     IT Consulting
                   </Link>
                 </li>
                 <li>
-                  <Link to="/services/digital-marketing">
+                  <Link to="#">
                     <span className="service-dot"></span>
                     Digital Marketing
                   </Link>
@@ -189,49 +262,60 @@ const Footer = () => {
                 industry insights, and special offers.
               </p>
               
-              <form className="newsletter-form">
+              <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
                 <div className="input-group">
                   <input 
                     type="email" 
                     placeholder="Enter your email" 
                     className="newsletter-input"
+                    value={email}
+                    onChange={handleEmailChange}
+                    disabled={isSubmitting || subscriptionStatus === 'success'}
                     required
                   />
-                  <button type="submit" className="newsletter-btn">
-                    <FaArrowRight />
+                  <button 
+                    type="submit" 
+                    className="newsletter-btn"
+                    disabled={isSubmitting || subscriptionStatus === 'success'}
+                  >
+                    {isSubmitting ? (
+                      <span className="spinner"></span>
+                    ) : subscriptionStatus === 'success' ? (
+                      <FaCheck />
+                    ) : (
+                      <FaArrowRight />
+                    )}
                   </button>
                 </div>
+                
                 <div className="form-check">
-                  <input type="checkbox" id="privacy" required />
+                  <input 
+                    type="checkbox" 
+                    id="privacy" 
+                    checked={agreedToPrivacy}
+                    onChange={(e) => setAgreedToPrivacy(e.target.checked)}
+                    disabled={isSubmitting || subscriptionStatus === 'success'}
+                    required 
+                  />
                   <label htmlFor="privacy">
                     I agree to the privacy policy
                   </label>
                 </div>
+                
+                {/* Status Message */}
+                {message && (
+                  <div className={`status-message ${subscriptionStatus}`}>
+                    {subscriptionStatus === 'success' ? (
+                      <FaCheck className="status-icon" />
+                    ) : (
+                      <FaExclamationTriangle className="status-icon" />
+                    )}
+                    <span>{message}</span>
+                  </div>
+                )}
               </form>
               
-              <div className="social-links">
-                <h4>Follow Us</h4>
-                <div className="social-icons">
-                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    <FaFacebook />
-                  </a>
-                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    <FaTwitter />
-                  </a>
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    <FaLinkedin />
-                  </a>
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    <FaInstagram />
-                  </a>
-                  <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    <FaGithub />
-                  </a>
-                  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    <FaYoutube />
-                  </a>
-                </div>
-              </div>
+              
             </motion.div>
           </div>
         </div>
@@ -254,16 +338,6 @@ const Footer = () => {
               <span className="separator">|</span>
               <Link to="/sitemap">Sitemap</Link>
             </div>
-            
-            {/* <div className="payment-methods">
-              <span className="payment-text">We Accept:</span>
-              <div className="payment-icons">
-                <div className="payment-icon visa">Visa</div>
-                <div className="payment-icon mastercard">MasterCard</div>
-                <div className="payment-icon paypal">PayPal</div>
-                <div className="payment-icon stripe">Stripe</div>
-              </div>
-            </div> */}
           </div>
           
           <div className="footer-extra">
@@ -280,8 +354,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      
-      
     </footer>
   );
 };

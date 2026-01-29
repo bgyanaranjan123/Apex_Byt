@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import '../css/Services.css';
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></link>
+import { useNavigate } from 'react-router-dom'; // Added for navigation
 import { AdvancedSkyBubbleWave } from '../components/AdvanceSkyBubbleWave';
+import '../css/Services.css';
 
 const Services = () => {
   const [activeService, setActiveService] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
   const [waveIntensity, setWaveIntensity] = useState(0.5);
+  const navigate = useNavigate(); // Navigation hook
   
-  // Services data with images
+  // Updated Services data with new content
   const services = [
     {
       id: 1,
       title: "Software Development",
-      tagline: "Transform Ideas into Powerful Solutions",
-      description: "We build robust, scalable software applications that drive business growth. From concept to deployment, we deliver enterprise-grade solutions tailored to your specific needs.",
+      tagline: "Transform Vision into Powerful Digital Solutions",
+      description: "We architect, design, and build custom software applications that solve complex business challenges. Our full-cycle development process ensures scalable, secure, and high-performance solutions that drive operational efficiency and competitive advantage.",
       features: [
-        "Custom Web Applications",
-        "Enterprise Solutions",
-        "API Integration & Development",
-        "Legacy System Modernization",
-        "Microservices Architecture",
-        "Real-time Applications"
+        "Enterprise Application Development",
+        "Cloud-native Solutions Architecture",
+        "Microservices & API Integration",
+        // "Legacy System Modernization",
+        // "Real-time Analytics Platforms",
+        // "DevOps Implementation"
       ],
-      technologies: ["React", "Node.js", "Python", ".NET", "Java", "Docker", "Kubernetes"],
+      technologies: ["React/Next.js", "Node.js/Python", ".NET Core", "Java/Spring", "Docker/K8s", "AWS/Azure", "PostgreSQL/MongoDB"],
       image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       color: "#3B82F6",
       icon: "💻"
@@ -34,17 +35,17 @@ const Services = () => {
     {
       id: 2,
       title: "Mobile App Development",
-      tagline: "Engage Users on Every Platform",
-      description: "Create immersive mobile experiences for iOS and Android. Our cross-platform solutions ensure your app performs flawlessly across all devices.",
+      tagline: "Create Immersive Cross-Platform Experiences",
+      description: "Build engaging mobile applications that connect with users across iOS and Android platforms. Our mobile solutions combine intuitive design with robust functionality to deliver exceptional user experiences and drive business growth.",
       features: [
-        "Native iOS & Android Apps",
-        "Cross-platform Development",
-        "UI/UX Mobile Design",
-        "App Store Optimization",
-        "Push Notifications",
-        "Mobile Analytics"
+        "Native iOS & Android Development",
+        "Cross-platform React Native/Flutter",
+        "UI/UX Mobile-First Design",
+        // "App Store Optimization Strategy",
+        // "Push Notification Systems",
+        // "Mobile Analytics Integration"
       ],
-      technologies: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase", "GraphQL"],
+      technologies: ["React Native", "Flutter", "Swift/Kotlin", "Firebase", "GraphQL", "Redux", "CI/CD Pipelines"],
       image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       color: "#8B5CF6",
       icon: "📱"
@@ -52,17 +53,17 @@ const Services = () => {
     {
       id: 3,
       title: "Cloud & DevOps",
-      tagline: "Scale with Confidence in the Cloud",
-      description: "Leverage the power of cloud computing with our DevOps expertise. We build scalable, secure, and cost-effective cloud infrastructure solutions.",
+      tagline: "Accelerate Innovation with Scalable Cloud Infrastructure",
+      description: "Transform your IT operations with our comprehensive cloud and DevOps services. We design, implement, and manage secure cloud environments that enable rapid deployment, scalability, and operational excellence.",
       features: [
-        "Cloud Migration",
-        "CI/CD Pipeline Setup",
-        "Infrastructure as Code",
-        "Container Orchestration",
-        "Monitoring & Alerting",
-        "Disaster Recovery"
+        "Cloud Migration & Strategy",
+        "CI/CD Pipeline Implementation",
+        "Infrastructure as Code (IaC)",
+        // "Container Orchestration",
+        // "Monitoring & Performance Optimization",
+        // "Security & Compliance Management"
       ],
-      technologies: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform", "Jenkins"],
+      technologies: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform", "Jenkins/GitLab"],
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       color: "#10B981",
       icon: "☁️"
@@ -70,17 +71,17 @@ const Services = () => {
     {
       id: 4,
       title: "UI/UX Design",
-      tagline: "Design Experiences Users Love",
-      description: "Create beautiful, intuitive interfaces that drive engagement and conversion. Our design-first approach ensures exceptional user experiences.",
+      tagline: "Craft Intuitive Digital Experiences That Convert",
+      description: "Design beautiful, functional interfaces that users love. Our human-centered design approach focuses on creating seamless experiences that drive engagement, satisfaction, and business results.",
       features: [
-        "User Research & Testing",
-        "Wireframing & Prototyping",
-        "Responsive Web Design",
-        "Design Systems",
-        "Interaction Design",
-        "Accessibility Compliance"
+        "User Research & Persona Development",
+        "Wireframing & Interactive Prototyping",
+        "Responsive Web & Mobile Design",
+        // "Design Systems & Component Libraries",
+        // "Accessibility & Inclusive Design",
+        // "Usability Testing & Optimization"
       ],
-      technologies: ["Figma", "Sketch", "Adobe XD", "Webflow", "Three.js", "GSAP"],
+      technologies: ["Figma", "Sketch", "Adobe XD", "Webflow", "Three.js", "GSAP", "Design Thinking"],
       image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       color: "#F59E0B",
       icon: "🎨"
@@ -88,17 +89,17 @@ const Services = () => {
     {
       id: 5,
       title: "IT Consulting",
-      tagline: "Strategic Technology Guidance",
-      description: "Get expert guidance on your digital transformation journey. We help you make informed technology decisions that align with your business goals.",
+      tagline: "Strategic Technology Guidance for Digital Transformation",
+      description: "Navigate your digital transformation journey with expert guidance. We provide strategic IT consulting services that align technology with business objectives, optimize operations, and drive innovation.",
       features: [
-        "Digital Strategy",
-        "Technology Architecture",
-        "System Optimization",
-        "Security Audits",
-        "Cost Optimization",
-        "Roadmap Planning"
+        "Digital Transformation Strategy",
+        "Technology Architecture Review",
+        "IT Infrastructure Optimization",
+        // "Cybersecurity & Risk Assessment",
+        // "Cost Optimization Analysis",
+        // "Digital Roadmap Planning"
       ],
-      technologies: ["Strategy", "Architecture", "Security", "Compliance", "Optimization", "Planning"],
+      technologies: ["TOGAF", "ITIL", "Agile/Scrum", "Cybersecurity", "Cloud Strategy", "Data Governance", "Business Analysis"],
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       color: "#EF4444",
       icon: "📊"
@@ -106,22 +107,42 @@ const Services = () => {
     {
       id: 6,
       title: "Staffing & Resource Augmentation",
-      tagline: "Build Your Dream Team",
-      description: "Scale your team with top-tier talent. We provide dedicated developers, QA engineers, and project managers to complement your in-house team.",
+      tagline: "Build Your Elite Technology Team with Global Talent",
+      description: "Scale your development capabilities with pre-vetted technology experts. Our staffing solutions provide you with dedicated professionals who seamlessly integrate with your team and culture.",
       features: [
-        "Contract Staffing",
         "Dedicated Developer Teams",
-        "Offshore Hiring",
-        "Technical Interviews",
-        "Team Integration",
-        "Performance Management"
+        "Technical Talent Acquisition",
+        "Offshore Development Centers",
+        // "Comprehensive Skill Assessment",
+        // "Team Integration & Management",
+        // "Performance Monitoring"
       ],
-      technologies: ["Recruitment", "Vetting", "Onboarding", "Management", "Retention", "Scaling"],
+      technologies: ["Technical Screening", "Team Building", "Agile Coaching", "Performance Metrics", "Retention Strategies", "Global Talent Pool"],
       image: "https://images.unsplash.com/photo-1551836026-d5c2c5af91f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       color: "#6366F1",
       icon: "👥"
     }
   ];
+
+  // Handle navigation for CTA buttons
+  const handleScheduleConsultation = () => {
+    navigate('/contact?type=consultation');
+  };
+
+  const handleDownloadBrochure = () => {
+    // In a real application, this would trigger a file download
+    // For now, we'll simulate it
+    const link = document.createElement('a');
+    link.href = '/brochure.pdf'; // Your brochure file path
+    link.download = 'ApexByte-Services-Brochure.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleRequestQuote = (serviceName) => {
+    navigate(`/contact?type=quote&service=${encodeURIComponent(serviceName)}`);
+  };
 
   // Handle mouse move for parallax effect
   const handleMouseMove = (e) => {
@@ -129,7 +150,6 @@ const Services = () => {
     const y = (e.clientY - window.innerHeight / 2) * 0.01;
     setMousePosition({ x, y });
     
-    // Adjust wave intensity based on mouse speed
     const speed = Math.sqrt(x * x + y * y);
     setWaveIntensity(Math.min(1, 0.5 + speed * 2));
   };
@@ -138,8 +158,6 @@ const Services = () => {
   const handleScroll = () => {
     const scroll = window.scrollY;
     setScrollY(scroll);
-    
-    // Adjust wave speed based on scroll
     const scrollSpeed = Math.min(1, scroll / 1000);
     setWaveIntensity(0.5 + scrollSpeed * 0.5);
   };
@@ -176,30 +194,6 @@ const Services = () => {
         duration: 0.8, 
         ease: [0.22, 1, 0.36, 1],
         staggerChildren: 0.1
-      }
-    }
-  };
-
-  const fadeInLeft = {
-    initial: { opacity: 0, x: -50 },
-    animate: { 
-      opacity: 1, 
-      x: 0,
-      transition: { 
-        duration: 0.8, 
-        ease: [0.22, 1, 0.36, 1]
-      }
-    }
-  };
-
-  const fadeInRight = {
-    initial: { opacity: 0, x: 50 },
-    animate: { 
-      opacity: 1, 
-      x: 0,
-      transition: { 
-        duration: 0.8, 
-        ease: [0.22, 1, 0.36, 1]
       }
     }
   };
@@ -312,17 +306,6 @@ const Services = () => {
     }
   };
 
-  const waveVariants = {
-    animate: {
-      backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-      transition: {
-        duration: 20,
-        ease: "linear",
-        repeat: Infinity
-      }
-    }
-  };
-
   return (
     <motion.div 
       className="services-page-container"
@@ -402,20 +385,20 @@ const Services = () => {
             className="services-hero-badge"
             variants={scaleIn}
           >
-            Our Services
+            Comprehensive Technology Solutions
           </motion.div>
           
           <motion.h1 
             className="services-hero-title"
             variants={fadeInUp}
           >
-            Technology Solutions That
+            Accelerate Digital Transformation with
             <motion.span 
               className="services-gradient-text"
               variants={gradientTextAnimation}
               animate="animate"
             >
-              Drive Business Forward
+              Expert Technology Services
             </motion.span>
           </motion.h1>
           
@@ -423,8 +406,8 @@ const Services = () => {
             className="services-hero-subtitle"
             variants={fadeInUp}
           >
-            We combine cutting-edge technology with strategic expertise to deliver 
-            innovative solutions that transform businesses and accelerate growth.
+            We deliver end-to-end technology solutions that drive innovation, optimize operations, 
+            and create sustainable competitive advantages for businesses of all sizes across industries.
           </motion.p>
           
           <motion.div 
@@ -441,9 +424,9 @@ const Services = () => {
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                200+
+                250+
               </motion.div>
-              <div className="services-stat-label">Projects Delivered</div>
+              <div className="services-stat-label">Successful Projects</div>
             </motion.div>
             
             <motion.div 
@@ -456,9 +439,9 @@ const Services = () => {
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
               >
-                50+
+                75+
               </motion.div>
-              <div className="services-stat-label">Happy Clients</div>
+              <div className="services-stat-label">Enterprise Clients</div>
             </motion.div>
             
             <motion.div 
@@ -471,9 +454,9 @@ const Services = () => {
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, repeat: Infinity, delay: 0.4 }}
               >
-                98%
+                99%
               </motion.div>
-              <div className="services-stat-label">Client Satisfaction</div>
+              <div className="services-stat-label">Client Retention Rate</div>
             </motion.div>
           </motion.div>
         </motion.div>
@@ -532,20 +515,20 @@ const Services = () => {
               className="services-section-label"
               variants={scaleIn}
             >
-              Our Expertise
+              Our Service Portfolio
             </motion.span>
             <motion.h2 
               className="services-section-title"
               variants={fadeInUp}
             >
-              Comprehensive Technology Services
+              End-to-End Technology Solutions
             </motion.h2>
             <motion.p 
               className="services-section-subtitle"
               variants={fadeInUp}
             >
-              From strategy to execution, we provide end-to-end technology solutions 
-              that empower businesses to thrive in the digital age.
+              From strategic consulting to technical implementation, we provide comprehensive 
+              services that address your unique business challenges and growth opportunities.
             </motion.p>
           </motion.div>
 
@@ -591,7 +574,7 @@ const Services = () => {
                   
                   <h3 className="services-service-title">{service.title}</h3>
                   <p className="services-service-tagline">{service.tagline}</p>
-                  <p className="services-service-description">{service.description}</p>
+                  <p className="services-service-description">{service.description.substring(0, 120)}...</p>
                   
                   <div className="services-service-features">
                     {service.features.slice(0, 3).map((feature, idx) => (
@@ -627,7 +610,7 @@ const Services = () => {
                     whileHover={{ x: 10 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <span className="services-view-details">View Details</span>
+                    <span className="services-view-details">Explore Service Details</span>
                     <motion.span 
                       className="services-arrow-icon"
                       animate={{ x: [0, 5, 0] }}
@@ -677,14 +660,14 @@ const Services = () => {
               className="services-section-label"
               variants={scaleIn}
             >
-              Our Process
+              Our Methodology
             </motion.span>
             <motion.h2 
               className="services-section-title"
               variants={fadeInUp}
-              style={{color:'black'}}
+              style={{color:'white'}}
             >
-              How We Deliver Excellence
+              A Structured Approach to Success
             </motion.h2>
           </motion.div>
 
@@ -692,29 +675,29 @@ const Services = () => {
             {[
               {
                 step: 1,
-                title: "Discovery & Strategy",
-                description: "We deeply understand your business goals and technical requirements",
+                title: "Discovery & Analysis",
+                description: "We conduct comprehensive requirement analysis, stakeholder interviews, and market research to understand your business objectives and technical needs.",
                 icon: "🔍",
                 color: "#3B82F6"
               },
               {
                 step: 2,
-                title: "Design & Planning",
-                description: "Create wireframes, prototypes, and detailed project plans",
+                title: "Strategy & Planning",
+                description: "Develop detailed project roadmaps, technical specifications, and success metrics aligned with your business goals and timeline.",
                 icon: "📐",
                 color: "#8B5CF6"
               },
               {
                 step: 3,
-                title: "Development & Testing",
-                description: "Agile development with continuous integration and testing",
+                title: "Design & Development",
+                description: "Agile development cycles with continuous feedback, rigorous testing, and quality assurance at every stage of the build process.",
                 icon: "⚙️",
                 color: "#10B981"
               },
               {
                 step: 4,
-                title: "Deployment & Support",
-                description: "Seamless deployment and ongoing maintenance support",
+                title: "Deployment & Optimization",
+                description: "Seamless deployment with comprehensive documentation, training, and ongoing support for continuous improvement and scaling.",
                 icon: "🚀",
                 color: "#F59E0B"
               }
@@ -769,7 +752,7 @@ const Services = () => {
         </div>
       </section>
 
-      {/* CTA Section with Waves */}
+      {/* CTA Section with Waves - FIXED NAVIGATION */}
       <section className="services-cta-section">
         {/* Multiple Wave Layers */}
         <div className="services-cta-wave-layer services-cta-wave-1">
@@ -811,15 +794,15 @@ const Services = () => {
               className="services-cta-title"
               variants={fadeInUp}
             >
-              Ready to Transform Your Business?
+              Ready to Elevate Your Technology Strategy?
             </motion.h2>
             
             <motion.p 
               className="services-cta-description"
               variants={fadeInUp}
             >
-              Let's discuss how our technology solutions can help you achieve 
-              your business goals and drive digital transformation.
+              Connect with our technology experts to discuss how our solutions can accelerate 
+              your digital transformation, optimize operations, and drive sustainable growth.
             </motion.p>
             
             <motion.div 
@@ -828,6 +811,7 @@ const Services = () => {
             >
               <motion.button 
                 className="services-cta-button services-cta-primary"
+                onClick={handleScheduleConsultation}
                 whileHover={{ 
                   scale: 1.05,
                   boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)"
@@ -847,11 +831,12 @@ const Services = () => {
                 }}
               >
                 <i className="fas fa-calendar-check"></i>
-                Schedule a Consultation
+                Schedule Technical Consultation
               </motion.button>
               
               <motion.button 
                 className="services-cta-button services-cta-secondary"
+                onClick={handleDownloadBrochure}
                 whileHover={{ 
                   scale: 1.05,
                   boxShadow: "0 20px 40px rgba(255, 255, 255, 0.1)"
@@ -859,8 +844,15 @@ const Services = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <i className="fas fa-file-alt"></i>
-                Download Brochure
+                Download Service Catalog
               </motion.button>
+            </motion.div>
+            
+            <motion.div 
+              className="services-cta-contact"
+              variants={fadeInUp}
+            >
+              <p>Prefer to speak directly? <a href="tel:+15551234567">+1 (555) 123-4567</a> | <a href="mailto:solutions@apexbyteit.com">solutions@apexbyteit.com</a></p>
             </motion.div>
           </motion.div>
         </div>
@@ -935,10 +927,10 @@ const Services = () => {
               <div className="services-modal-body">
                 <div className="services-modal-columns">
                   <div className="services-modal-column">
-                    <h3 className="services-section-heading">Overview</h3>
+                    <h3 className="services-section-heading">Service Overview</h3>
                     <p className="services-modal-description">{activeService.description}</p>
                     
-                    <h3 className="services-section-heading">Key Features</h3>
+                    <h3 className="services-section-heading">Key Features & Capabilities</h3>
                     <div className="services-features-list">
                       {activeService.features.map((feature, index) => (
                         <motion.div 
@@ -957,7 +949,7 @@ const Services = () => {
                   </div>
                   
                   <div className="services-modal-column">
-                    <h3 className="services-section-heading">Technologies & Tools</h3>
+                    <h3 className="services-section-heading">Technology Stack</h3>
                     <div className="services-technologies-grid">
                       {activeService.technologies.map((tech, index) => (
                         <motion.span 
@@ -1001,9 +993,10 @@ const Services = () => {
                   style={{ background: activeService.color }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => handleRequestQuote(activeService.title)}
                 >
                   <i className="fas fa-comments"></i>
-                  Request a Quote
+                  Request Custom Quote
                 </motion.button>
                 
                 <motion.button 
@@ -1017,9 +1010,10 @@ const Services = () => {
                     background: `${activeService.color}20`
                   }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={handleDownloadBrochure}
                 >
                   <i className="fas fa-download"></i>
-                  Download Case Study
+                  Download Service Details
                 </motion.button>
               </div>
             </motion.div>

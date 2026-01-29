@@ -39,8 +39,8 @@ const Home = () => {
   const backgroundImages = [
     '/home.jpg',
     '/home1.jpg',
-    '/home2.jpg',
-    '/home3.jpg'
+    '/hero1.jpg',
+    '/home2.jpg'
   ];
 
   // Services Data

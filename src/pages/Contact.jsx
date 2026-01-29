@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import {Link} from "react-router-dom";
 import { useState } from "react";
 import { 
   FaMapMarkerAlt, 
@@ -109,44 +110,7 @@ const Contact = () => {
   ];
 
   // Company branches data
-  const branches = [
-    {
-      id: 1,
-      city: "San Francisco",
-      country: "USA",
-      address: "123 Tech Park, Silicon Valley, SF 94107",
-      phone: "+1 (555) 123-4567",
-      email: "sf@apexbyteit.com",
-      image: "/place.jpg"
-    },
-    {
-      id: 2,
-      city: "New York",
-      country: "USA",
-      address: "456 Tech Tower, Manhattan, NY 10001",
-      phone: "+1 (555) 987-6543",
-      email: "ny@apexbyteit.com",
-      image: "/place1.jpg"
-    },
-    {
-      id: 3,
-      city: "London",
-      country: "UK",
-      address: "789 Innovation Hub, London EC2A 4BX",
-      phone: "+44 20 7123 4567",
-      email: "london@apexbyteit.com",
-      image: "/place2.jpg"
-    },
-    {
-      id: 4,
-      city: "Singapore",
-      country: "Singapore",
-      address: "101 Digital Center, Singapore 048623",
-      phone: "+65 6123 4567",
-      email: "sg@apexbyteit.com",
-      image: "/place3.jpg"
-    }
-  ];
+  
 
   return (
     <div className="contact-page">
@@ -190,8 +154,8 @@ const Contact = () => {
               <div className="image-overlay">
                 <div className="overlay-content">
                   <FaPaperPlane className="overlay-icon" />
-                  <h3>Let's Start Your Project</h3>
-                  <p>Get a free consultation today</p>
+                  <h3 style={{fontSize:'2.2rem'}}>Let's Start Your Project</h3>
+                  <p style={{fontSize:'1.2rem'}}>Get a free consultation today</p>
                 </div>
               </div>
             </motion.div>
@@ -226,7 +190,7 @@ const Contact = () => {
                     <div className="detail-content">
                       <h4>Phone Number</h4>
                       <p>+1 (555) 123-4567</p>
-                      <p className="detail-sub">Monday to Friday, 9am to 6pm</p>
+                      <p className="detail-sub" style={{color:'white'}}>Monday to Friday, 9am to 7pm</p>
                     </div>
                   </div>
 
@@ -236,8 +200,7 @@ const Contact = () => {
                     </div>
                     <div className="detail-content">
                       <h4>Email Address</h4>
-                      <p>info@apexbyteit.com</p>
-                      <p className="detail-sub">support@apexbyteit.com</p>
+                      <Link to="mailto:hr@apexbyteit.com" style={{color:'white', textDecoration:'none'}}><p>hr@apexbyteit.com</p></Link>
                     </div>
                   </div>
 
@@ -247,21 +210,11 @@ const Contact = () => {
                     </div>
                     <div className="detail-content">
                       <h4>Office Address</h4>
-                      <p>123 Tech Park, Silicon Valley</p>
-                      <p className="detail-sub">San Francisco, CA 94107</p>
+                      <p>Bhubneswar , Odisha</p>
                     </div>
                   </div>
 
-                  <div className="contact-detail-item">
-                    <div className="detail-icon">
-                      <FaClock />
-                    </div>
-                    <div className="detail-content">
-                      <h4>Working Hours</h4>
-                      <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                      <p className="detail-sub">Saturday: 10:00 AM - 4:00 PM</p>
-                    </div>
-                  </div>
+                  
                 </div>
 
                 {/* Social Media */}
@@ -287,7 +240,7 @@ const Contact = () => {
                 </div>
 
                 {/* Emergency Contact */}
-                <div className="emergency-contact">
+                {/* <div className="emergency-contact">
                   <div className="emergency-icon">
                     <FaPhone />
                   </div>
@@ -296,17 +249,11 @@ const Contact = () => {
                     <p>+1 (555) 999-8888</p>
                     <small>Available 24/7 for critical issues</small>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               {/* Company Image */}
-              <div className="company-image-card">
-                <img src={teamImage} alt="Our Team" />
-                <div className="company-image-overlay">
-                  <h3>Our Global Team</h3>
-                  <p>50+ Experts Worldwide</p>
-                </div>
-              </div>
+             
             </motion.div>
 
             {/* Right Side - Contact Form */}
@@ -320,7 +267,6 @@ const Contact = () => {
               <div className="contact-form-card">
                 <div className="form-header">
                   <h2>Send us a Message</h2>
-                  <p>Fill out the form below and we'll get back to you shortly</p>
                 </div>
 
                 {isSubmitted ? (
@@ -433,10 +379,7 @@ const Contact = () => {
                           </>
                         )}
                       </button>
-                      <p className="form-note">
-                        By submitting this form, you agree to our 
-                        <a href="/privacy"> Privacy Policy</a>
-                      </p>
+                     
                     </div>
                   </form>
                 )}
@@ -447,46 +390,10 @@ const Contact = () => {
       </section>
 
       {/* Interactive Map Section */}
-      <section className="map-section">
-        <div className="container">
-          <div className="section-header">
-            <h2>Find Our Offices Worldwide</h2>
-            <p>Visit us at any of our global locations</p>
-          </div>
-          
-          <div className="map-container">
-            <div className="map-image">
-              <img src={mapImage} alt="World Map" />
-              {branches.map(branch => (
-                <div 
-                  key={branch.id} 
-                  className="map-pin"
-                  style={{
-                    left: `${(branch.id * 20) + 10}%`,
-                    top: `${(branch.id % 2 === 0 ? 40 : 60)}%`
-                  }}
-                >
-                  <FaMapPin />
-                  <div className="pin-tooltip">
-                    <h4>{branch.city}</h4>
-                    <p>{branch.country}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="map-controls">
-              <button className="map-control-btn">
-                <FaLocationArrow />
-                Find Nearest Office
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Global Branches Section */}
-      <section className="branches-section">
+      {/* <section className="branches-section">
         <div className="container">
           <div className="section-header">
             <h2>Our Global Offices</h2>
@@ -547,7 +454,7 @@ const Contact = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* FAQ Section */}
       <section className="faq-section">
@@ -593,9 +500,7 @@ const Contact = () => {
                       <div className="answer-content">
                         <p>{faq.answer}</p>
                         <div className="answer-actions">
-                          <button className="action-btn">
-                            Still have questions? Contact us
-                          </button>
+                          
                         </div>
                       </div>
                     </motion.div>
@@ -605,21 +510,7 @@ const Contact = () => {
             ))}
           </div>
           
-          <div className="faq-cta">
-            <div className="cta-content">
-              <h3>Still have questions?</h3>
-              <p>Can't find the answer you're looking for? Our team is here to help.</p>
-              <div className="cta-buttons">
-                <button className="btn-primary">
-                  <FaQuestionCircle />
-                  Ask a Question
-                </button>
-                <button className="btn-secondary">
-                  Schedule a Call
-                </button>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </section>
     </div>
