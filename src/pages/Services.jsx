@@ -839,7 +839,6 @@ const Services = () => {
               className="services-cta-contact"
               variants={fadeInUp}
             >
-              <p>Prefer to speak directly? <a href="tel:+15551234567">+1 (555) 123-4567</a> | <a href="mailto:solutions@apexbyteit.com">solutions@apexbyteit.com</a></p>
             </motion.div>
           </motion.div>
         </div>

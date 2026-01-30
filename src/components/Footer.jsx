@@ -138,8 +138,7 @@ const Footer = () => {
                   <FaMapMarkerAlt className="contact-icon" />
                   <div>
                     <h4>Our Location</h4>
-                    <p>123 Tech Park, Silicon Valley</p>
-                    <p>San Francisco, CA 94107</p>
+                    <p>4451 Brookfield Corporate Dr, Suite 109 Chantilly, VA 20151, USA</p>
                   </div>
                 </div>
                 
@@ -147,8 +146,7 @@ const Footer = () => {
                   <FaPhone className="contact-icon" />
                   <div>
                     <h4>Phone Number</h4>
-                    <p>+1 (555) 123-4567</p>
-                    <p>+1 (555) 987-6543</p>
+                    <p><a href="tel:715-531-7189" style={{color:'grey', textDecoration:'none'}}>715-531-7189</a></p>
                   </div>
                 </div>
                 
@@ -156,7 +154,7 @@ const Footer = () => {
                   <FaEnvelope className="contact-icon" />
                   <div>
                     <h4>Email Address</h4>
-                    <p className="emailto"><a href="mailto:hr@apexbyteit.com" >hr@apexbyteit.com</a></p>
+                    <p className="emailto"><a href="mailto:hr@apexbyteit.com">hr@apexbyteit.com</a></p>
                   </div>
                 </div>
               </div>
@@ -330,13 +328,13 @@ const Footer = () => {
             </div>
             
             <div className="legal-links">
-              <Link to="/privacy-policy">Privacy Policy</Link>
+              <Link to="">Privacy Policy</Link>
               <span className="separator">|</span>
-              <Link to="/terms-conditions">Terms & Conditions</Link>
+              <Link to="">Terms & Conditions</Link>
               <span className="separator">|</span>
-              <Link to="/cookie-policy">Cookie Policy</Link>
+              <Link to="">Cookie Policy</Link>
               <span className="separator">|</span>
-              <Link to="/sitemap">Sitemap</Link>
+              <Link to="">Sitemap</Link>
             </div>
           </div>
           
@@ -346,11 +344,7 @@ const Footer = () => {
                 ApexByteIT is a registered trademark. All other trademarks are the property of their respective owners.
               </p>
             </div>
-            <div className="certifications">
-              <span className="cert-badge iso">ISO 9001:2015</span>
-              <span className="cert-badge gdpr">GDPR Compliant</span>
-              <span className="cert-badge secure">SSL Secured</span>
-            </div>
+           
           </div>
         </div>
       </div>

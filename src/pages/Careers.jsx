@@ -988,7 +988,7 @@ const Careers = () => {
 
           <div className="cta-contact-info">
             <p>
-              <FaPhone /> Call us: <a href="tel:+15551234567">+1 (555) 123-4567</a>
+              <FaPhone /> Call us: <a href="tel: 715-531-7189"> 715-531-7189</a>
             </p>
             <p>
               <FaEnvelope /> Email: <a href="mailto:hr@apexbyteit.com">hr@apexbyteit.com</a>

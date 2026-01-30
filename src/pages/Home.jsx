@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import {Link} from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FaCode, 
@@ -711,6 +712,7 @@ const Home = () => {
               Let's discuss how we can help you achieve your digital transformation goals.
             </p>
           </div>
+          <Link to="/contact">
           <motion.button 
             className="cta-button"
             whileHover={{ scale: 1.05 }}
@@ -718,6 +720,7 @@ const Home = () => {
           >
             Start Your Project Today
           </motion.button>
+          </Link>
         </motion.div>
       </section>
     </div>

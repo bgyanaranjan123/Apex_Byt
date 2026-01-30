@@ -570,15 +570,15 @@ const About = () => {
                 <div className="about-advantage-stats">
                   <div className="about-advantage-stat">
                     <div className="about-stat-number">360°</div>
-                    <div className="about-stat-label">Holistic Approach</div>
+                    <div className="about-stat-label" style={{color:'black'}}>Holistic Approach</div>
                   </div>
                   <div className="about-advantage-stat">
                     <div className="about-stat-number">95%</div>
-                    <div className="about-stat-label">Retention Rate</div>
+                    <div className="about-stat-label" style={{color:'black'}}>Retention Rate</div>
                   </div>
                   <div className="about-advantage-stat">
                     <div className="about-stat-number">48h</div>
-                    <div className="about-stat-label">Rapid Deployment</div>
+                    <div className="about-stat-label" style={{color:'black'}}>Rapid Deployment</div>
                   </div>
                 </div>
               </motion.div>
@@ -704,7 +704,7 @@ const About = () => {
 
             </div>
             <p className="about-cta-note">
-              Or contact us directly at <a href="mailto:sales@apexbyteit.com">sales@apexbyteit.com</a> | <a href="tel:+15551234567">+1 (555) 123-4567</a>
+              Or contact us directly at <a href="mailto:hr@apexbyteit.com">hr@apexbyteit.com</a> | <a href="tel:715-531-7189">715-531-7189</a>
             </p>
           </div>
         </div>

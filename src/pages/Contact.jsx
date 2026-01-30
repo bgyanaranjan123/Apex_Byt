@@ -189,8 +189,7 @@ const Contact = () => {
                     </div>
                     <div className="detail-content">
                       <h4>Phone Number</h4>
-                      <p>+1 (555) 123-4567</p>
-                      <p className="detail-sub" style={{color:'white'}}>Monday to Friday, 9am to 7pm</p>
+                      <p>715-531-7189</p>
                     </div>
                   </div>
 
@@ -210,7 +209,7 @@ const Contact = () => {
                     </div>
                     <div className="detail-content">
                       <h4>Office Address</h4>
-                      <p>Bhubneswar , Odisha</p>
+                      <p>4451 Brookfield Corporate Dr, Suite 109 Chantilly, VA 20151, USA</p>
                     </div>
                   </div>
 
